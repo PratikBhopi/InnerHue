@@ -15,6 +15,7 @@ export interface Mood {
   color: string;
   glow: string;
   category: string;
+  isCustom?: boolean;
 }
 
 export interface MoodCardProps {
@@ -22,13 +23,23 @@ export interface MoodCardProps {
   index: number;
   isSelected: boolean;
   onSelect: () => void;
+  onDelete?: (moodId: string) => void;
 }
 
 // 1. Define the component first
-const MoodCardBase = ({ mood, index, isSelected, onSelect }: MoodCardProps) => {
+const MoodCardBase = ({ mood, index, isSelected, onSelect, onDelete }: MoodCardProps) => {
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onDelete && mood.isCustom) {
+      onDelete(mood.id);
+    }
+  };
+
   return (
-    <motion.button
+    <motion.div
       onClick={onSelect}
+      role="button"
+      tabIndex={0}
       aria-label={`Select ${mood.name} mood`}
       aria-pressed={isSelected}
       initial={{ opacity: 0, y: 20 }}
@@ -36,8 +47,14 @@ const MoodCardBase = ({ mood, index, isSelected, onSelect }: MoodCardProps) => {
       transition={{ delay: index * 0.05 }}
       whileHover={{ scale: 1.05, y: -5 }}
       whileTap={{ scale: 0.95 }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
       className={`
-        relative group p-4 rounded-2xl border transition-all duration-300 w-full aspect-square flex flex-col items-center justify-center gap-3
+        relative group p-4 rounded-2xl border transition-all duration-300 w-full aspect-square flex flex-col items-center justify-center gap-3 cursor-pointer
         focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black
         ${isSelected
           ? "bg-white/20 border-white/50 shadow-[0_0_30px_rgba(255,255,255,0.3)]"
@@ -71,6 +88,22 @@ const MoodCardBase = ({ mood, index, isSelected, onSelect }: MoodCardProps) => {
         {mood.name}
       </span>
 
+      {/* Delete Button for Custom Moods */}
+      {mood.isCustom && onDelete && (
+        <motion.button
+          onClick={handleDelete}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="absolute top-1 right-1 z-20 p-1.5 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200"
+          title="Delete custom mood"
+          aria-label={`Delete ${mood.name} mood`}
+        >
+          <X className="w-3 h-3" />
+        </motion.button>
+      )}
+
       {/* Sparkles */}
       {isSelected && (
         <motion.div
@@ -82,7 +115,7 @@ const MoodCardBase = ({ mood, index, isSelected, onSelect }: MoodCardProps) => {
           <Sparkles className="absolute bottom-3 right-3 w-3 h-3 text-white opacity-50 animate-bounce" />
         </motion.div>
       )}
-    </motion.button>
+    </motion.div>
   );
 };
 
