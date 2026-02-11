@@ -105,42 +105,42 @@ export default function AnalyticsPage() {
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-6"
+        className="p-4 md:p-6"
       >
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link href="/">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-2 p-2 rounded-lg bg-white/70 backdrop-blur shadow-sm hover:shadow-md transition-all"
+              className="flex items-center space-x-1 md:space-x-2 p-1.5 md:p-2 rounded-lg bg-white/70 backdrop-blur shadow-sm hover:shadow-md transition-all"
             >
-              <ArrowLeft className="w-5 h-5 text-purple-600" />
-              <span className="text-purple-600 font-medium">Back</span>
+              <ArrowLeft className="w-5 h-5 md:w-5 md:h-5 text-purple-600" />
+              <span className="hidden md:inline text-purple-600 font-medium">Back</span>
             </motion.button>
           </Link>
 
           <div className="flex items-center space-x-2">
-            <Activity className="w-8 h-8 text-purple-600" />
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <Activity className="w-6 h-6 md:w-8 md:h-8 text-purple-600" />
+            <h1 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
               Mood Analytics
             </h1>
           </div>
 
-          <div className="w-20" /> {/* Spacer */}
+          <div className="w-8 md:w-20" /> {/* Spacer */}
         </div>
       </motion.header>
 
       {/* Main Content */}
-      <main className="px-6 pb-20">
+      <main className="px-4 md:px-6 pb-20">
         <div className="max-w-6xl mx-auto">
           {moodHistory.length === 0 ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-center py-20"
+              className="text-center py-12 md:py-20"
             >
-              <Heart className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-gray-600 mb-2">No reflections yet</h2>
+              <Heart className="w-12 h-12 md:w-16 md:h-16 text-gray-400 mx-auto mb-4" />
+              <h2 className="text-xl md:text-2xl font-bold text-gray-600 mb-2">No reflections yet</h2>
               <p className="text-gray-500 mb-8">Start your journey! Track your emotions to see insights here.</p>
               <Link href="/">
                 <motion.button
@@ -177,12 +177,12 @@ export default function AnalyticsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-white/50"
+                className="bg-white/80 backdrop-blur-md rounded-2xl md:rounded-3xl p-4 md:p-8 shadow-xl border border-white/50"
               >
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center space-x-2">
-                    <Calendar className="w-6 h-6 text-purple-600" />
-                    <h3 className="text-2xl font-bold text-gray-800">History</h3>
+                    <Calendar className="w-5 h-5 md:w-6 md:h-6 text-purple-600" />
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-800">History</h3>
                   </div>
 
                   <button
@@ -201,7 +201,7 @@ export default function AnalyticsPage() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.05 * index }}
-                      className="group flex items-center justify-between p-4 rounded-xl bg-white/60 backdrop-blur border border-white/40 shadow-sm hover:shadow-md transition-all hover:bg-white/80"
+                      className="group flex items-center justify-between p-3 md:p-4 rounded-xl bg-white/60 backdrop-blur border border-white/40 shadow-sm hover:shadow-md transition-all hover:bg-white/80"
                     >
                       <div className="flex items-center space-x-4">
                         {/* Status Dot */}

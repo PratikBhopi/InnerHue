@@ -7,6 +7,7 @@ import { MoodCard } from '@/components/MoodCard';
 import { FloatingBackground } from '@/components/FloatingBackground';
 import { Heart, BarChart3, Music } from 'lucide-react';
 import SimpleLangFlowChatbot from '@/components/SimpleLangFlowChatbot';
+import { QuoteCard } from '@/components/QuoteCard';
 
 const moods = [
   { id: 'happy', name: 'Happy', emoji: '😊', color: '#FFD93D', glow: '#FFF176' },
@@ -51,7 +52,7 @@ const moods = [
 
 export default function Home() {
   const [selectedMoods, setSelectedMoods] = useState<string[]>([]);
-  
+
   const toggleMood = (moodId: string) => {
     setSelectedMoods(prev => {
       if (prev.includes(moodId)) {
@@ -64,7 +65,7 @@ export default function Home() {
       }
     });
   };
-  
+
   const handleEmotionDetected = (emotions: string[]) => {
     setSelectedMoods(emotions.slice(0, 3));
   };
@@ -106,11 +107,11 @@ export default function Home() {
           />
         ))}
       </div>
-      
+
       <FloatingBackground />
-      
+
       {/* Header */}
-      <motion.header 
+      <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="relative z-10 p-6"
@@ -122,10 +123,10 @@ export default function Home() {
               InnerHue
             </h1>
           </div>
-          
+
           <nav className="flex space-x-4">
             <Link href="/analytics">
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="p-2 rounded-lg bg-white/20 backdrop-blur shadow-sm hover:shadow-md transition-all border border-white/30"
               >
@@ -133,7 +134,7 @@ export default function Home() {
               </motion.div>
             </Link>
             <Link href="/music">
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="p-2 rounded-lg bg-white/20 backdrop-blur shadow-sm hover:shadow-md transition-all border border-white/30"
               >
@@ -147,14 +148,14 @@ export default function Home() {
       {/* Main Content */}
       <main className="relative z-10 px-6 pb-20">
         <div className="max-w-6xl mx-auto">
-          
+
           {/* NEW QUOTE CARD COMPONENT */}
           <QuoteCard />
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+          {/* <motion.div  */}
+          {/* // initial={{ opacity: 0, y: 20 }} */}
           {/* Hero Section */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -169,7 +170,7 @@ export default function Home() {
           </motion.div>
 
           {/* Mood Cards Grid */}
-          <motion.div 
+          <motion.div
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 max-w-7xl mx-auto"
             initial="hidden"
             animate="visible"

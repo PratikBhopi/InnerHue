@@ -22,7 +22,7 @@ export default function MoodPage({ params, searchParams }: MoodPageProps) {
   const [suggestions, setSuggestions] = useState<any>(null);
   const [currentMoodIndex, setCurrentMoodIndex] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  
+
   // Fix 1: Main Data Fetching & Index Reset
   useEffect(() => {
     // 🔥 Reset index when route/params change
@@ -30,17 +30,17 @@ export default function MoodPage({ params, searchParams }: MoodPageProps) {
 
     // Get all selected moods from query param, fallback to single mood from URL
     const moodIds = searchParams?.moods ? searchParams.moods.split(',') : [params.id];
-    
+
     // Get mood data for all selected moods
     const moodsData = moodIds
       .map(id => MoodData.getMoodById(id))
       .filter(Boolean);
-    
+
     setMoodData(moodsData);
-    
+
     // Note: We removed the manual setSuggestions here. 
     // The new useEffect below handles the initial suggestion load automatically.
-    
+
     // Save to local storage for analytics
     const savedMoods = JSON.parse(localStorage.getItem('moodHistory') || '[]');
     moodIds.forEach(moodId => {
@@ -59,8 +59,8 @@ export default function MoodPage({ params, searchParams }: MoodPageProps) {
 
     const mood = moodData[currentMoodIndex];
     if (mood) {
-        const newSuggestions = MoodData.getSuggestions(mood.id);
-        setSuggestions(newSuggestions);
+      const newSuggestions = MoodData.getSuggestions(mood.id);
+      setSuggestions(newSuggestions);
     }
   }, [currentMoodIndex, moodData]);
 
@@ -84,24 +84,24 @@ export default function MoodPage({ params, searchParams }: MoodPageProps) {
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-6 relative z-10"
+        className="p-4 md:p-6 relative z-10"
       >
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link href="/">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-2 p-2 rounded-lg bg-white/70 backdrop-blur shadow-sm hover:shadow-md transition-all"
+              className="flex items-center space-x-1 md:space-x-2 p-1.5 md:p-2 rounded-lg bg-white/70 backdrop-blur shadow-sm hover:shadow-md transition-all"
             >
-              <ArrowLeft className="w-5 h-5 text-purple-600" />
-              <span className="text-purple-600 font-medium">Back</span>
+              <ArrowLeft className="w-5 h-5 md:w-5 md:h-5 text-purple-600" />
+              <span className="hidden md:inline text-purple-600 font-medium">Back</span>
             </motion.button>
           </Link>
 
-          <div className="flex items-center  space-x-2">
+          <div className="flex items-center space-x-1 md:space-x-2">
             {moodData.length > 1 ? (
-              <div className="flex items-center space-x-2">
-                <div className="flex space-x-1">
+              <div className="flex flex-col items-center md:flex-row md:space-x-2">
+                <div className="flex space-x-1 mb-1 md:mb-0">
                   {moodData.map((mood, index) => (
                     <motion.button
                       key={mood.id}
@@ -111,32 +111,31 @@ export default function MoodPage({ params, searchParams }: MoodPageProps) {
                       }}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`text-2xl p-1 rounded-full transition-all ${
-                        index === currentMoodIndex 
-                          ? 'bg-white/30 ring-2 ring-purple-400' 
-                          : 'hover:bg-white/20'
-                      }`}
+                      className={`text-lg md:text-2xl p-1 rounded-full transition-all ${index === currentMoodIndex
+                        ? 'bg-white/30 ring-2 ring-purple-400'
+                        : 'hover:bg-white/20'
+                        }`}
                     >
                       {mood.emoji}
                     </motion.button>
                   ))}
                 </div>
-                <h1 className="text-2xl font-bold text-gray-800">
+                <h1 className="text-sm md:text-2xl font-bold text-gray-800 text-center md:text-left">
                   Feeling {currentMood.name}
                   {moodData.length > 1 && (
-                    <span className="text-sm text-gray-600 ml-2">
-                      ({currentMoodIndex + 1} of {moodData.length})
+                    <span className="text-xs md:text-sm text-gray-600 ml-1 md:ml-2">
+                      ({currentMoodIndex + 1}/{moodData.length})
                     </span>
                   )}
                 </h1>
               </div>
             ) : (
-              <>
-                <span className="text-2xl">{currentMood.emoji}</span>
-                <h1 className="text-2xl font-bold text-gray-800">
+              <div className="flex items-center space-x-2">
+                <span className="text-xl md:text-2xl">{currentMood.emoji}</span>
+                <h1 className="text-lg md:text-2xl font-bold text-gray-800">
                   Feeling {currentMood.name}
                 </h1>
-              </>
+              </div>
             )}
           </div>
 
@@ -179,8 +178,8 @@ export default function MoodPage({ params, searchParams }: MoodPageProps) {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
             >
-              <SuggestionPanel 
-                suggestions={suggestions} 
+              <SuggestionPanel
+                suggestions={suggestions}
                 mood={currentMood}
                 isRefreshing={isRefreshing}
                 onRefresh={async () => {

@@ -1,14 +1,14 @@
 'use client';
 
 import React, { memo } from 'react';
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { Check, Sparkles } from "lucide-react";
 
-export interface Mood {
 import { motion, AnimatePresence } from 'framer-motion';
 import './moodcard.css';
+// export interface Mood 
 
-interface Mood {
+export interface Mood {
   id: string;
   name: string;
   emoji: string;
@@ -39,8 +39,8 @@ const MoodCardBase = ({ mood, index, isSelected, onSelect }: MoodCardProps) => {
       className={`
         relative group p-4 rounded-2xl border transition-all duration-300 w-full aspect-square flex flex-col items-center justify-center gap-3
         focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black
-        ${isSelected 
-          ? "bg-white/20 border-white/50 shadow-[0_0_30px_rgba(255,255,255,0.3)]" 
+        ${isSelected
+          ? "bg-white/20 border-white/50 shadow-[0_0_30px_rgba(255,255,255,0.3)]"
           : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
         }
       `}
@@ -87,7 +87,7 @@ const MoodCardBase = ({ mood, index, isSelected, onSelect }: MoodCardProps) => {
 };
 
 // 2. Export the memoized version separately
-export const MoodCard = memo(MoodCardBase);
+// export const MoodCard = memo(MoodCardBase);
 export function MoodCard({ mood, index, isSelected, onSelect }: MoodCardProps) {
   const getCategoryStyle = (category: string) => {
     const styles = {
@@ -128,18 +128,18 @@ export function MoodCard({ mood, index, isSelected, onSelect }: MoodCardProps) {
       whileHover={{
         scale: isSelected ? 1.02 : 1.08,
         y: -8,
-        transition: { 
-          type: "spring", 
-          stiffness: 400, 
-          damping: 20 
+        transition: {
+          type: "spring",
+          stiffness: 400,
+          damping: 20
         }
       }}
       whileTap={{
         scale: 0.95,
-        transition: { 
-          type: "spring", 
-          stiffness: 500, 
-          damping: 30 
+        transition: {
+          type: "spring",
+          stiffness: 500,
+          damping: 30
         }
       }}
       animate={{
@@ -176,10 +176,10 @@ export function MoodCard({ mood, index, isSelected, onSelect }: MoodCardProps) {
             initial={{ scale: 0, rotate: -180, opacity: 0 }}
             animate={{ scale: 1, rotate: 0, opacity: 1 }}
             exit={{ scale: 0, rotate: 180, opacity: 0 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 500, 
-              damping: 25 
+            transition={{
+              type: "spring",
+              stiffness: 500,
+              damping: 25
             }}
             className="absolute -top-2.5 -right-2.5 w-7 h-7 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center z-30 shadow-lg border-2 border-white"
           >
@@ -210,7 +210,7 @@ export function MoodCard({ mood, index, isSelected, onSelect }: MoodCardProps) {
             scale: isSelected ? 1.1 : 1,
           }}
           transition={{
-            y: isSelected 
+            y: isSelected
               ? { type: "spring", stiffness: 300, damping: 20 }
               : { duration: 3, repeat: Infinity, ease: "easeInOut" },
             scale: { type: "spring", stiffness: 300, damping: 20 }
@@ -220,7 +220,7 @@ export function MoodCard({ mood, index, isSelected, onSelect }: MoodCardProps) {
         </motion.div>
 
         {/* Enhanced text with smooth color transition */}
-        <motion.div 
+        <motion.div
           className={`text-xs sm:text-sm font-bold drop-shadow-lg leading-tight`}
           animate={{
             color: isSelected ? '#1f2937' : '#ffffff',
@@ -254,9 +254,9 @@ export function MoodCard({ mood, index, isSelected, onSelect }: MoodCardProps) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1.1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ 
-              duration: 0.4, 
-              ease: [0.4, 0, 0.2, 1] 
+            transition={{
+              duration: 0.4,
+              ease: [0.4, 0, 0.2, 1]
             }}
             className="absolute inset-0 rounded-3xl -z-10"
             style={{
@@ -272,11 +272,11 @@ export function MoodCard({ mood, index, isSelected, onSelect }: MoodCardProps) {
         {isSelected && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ 
+            animate={{
               opacity: [0.6, 0],
               scale: [1, 1.3]
             }}
-            transition={{ 
+            transition={{
               duration: 0.8,
               ease: "easeOut",
               repeat: Infinity,

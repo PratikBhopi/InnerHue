@@ -41,7 +41,7 @@ export function SuggestionPanel({ suggestions, mood, onRefresh, isRefreshing = f
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-bold text-gray-800">
+          <h3 className="text-xl md:text-2xl font-bold text-gray-800">
             Personalized Insights
           </h3>
           <Tooltip>
@@ -70,7 +70,7 @@ export function SuggestionPanel({ suggestions, mood, onRefresh, isRefreshing = f
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/50"
+          className="bg-white/80 backdrop-blur-md rounded-2xl p-4 md:p-6 shadow-lg border border-white/50"
         >
           <div className="flex items-start space-x-3">
             <div className="p-2 rounded-lg bg-purple-100">
@@ -88,7 +88,7 @@ export function SuggestionPanel({ suggestions, mood, onRefresh, isRefreshing = f
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/50"
+          className="bg-white/80 backdrop-blur-md rounded-2xl p-4 md:p-6 shadow-lg border border-white/50"
         >
           <div className="flex items-start space-x-3 relative">
             <div className="p-2 rounded-lg bg-pink-100">
@@ -123,7 +123,7 @@ export function SuggestionPanel({ suggestions, mood, onRefresh, isRefreshing = f
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/50"
+          className="bg-white/80 backdrop-blur-md rounded-2xl p-4 md:p-6 shadow-lg border border-white/50"
         >
           <div className="flex items-start space-x-3">
             <div className="p-2 rounded-lg bg-blue-100">
@@ -156,16 +156,26 @@ export function SuggestionPanel({ suggestions, mood, onRefresh, isRefreshing = f
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/50"
+          className="bg-white/80 backdrop-blur-md rounded-2xl p-0 md:p-6 shadow-lg border border-white/50 overflow-hidden"
         >
-          <div className="flex items-start space-x-3">
+          {/* Mobile Header */}
+          <div className="flex items-center space-x-3 p-4 border-b border-white/20 md:hidden bg-white/40">
             <div className="p-2 rounded-lg bg-green-100">
               <Music className="w-5 h-5 text-green-600" />
             </div>
-            <div className="flex-1 space-y-3">
-              <h4 className="font-semibold text-gray-800">Soundscape</h4>
+            <h4 className="font-semibold text-gray-800">Soundscape</h4>
+          </div>
 
-              <div className="relative w-full h-[152px] rounded-xl overflow-hidden bg-white/50 backdrop-blur-md shadow-inner border border-white/20">
+          <div className="flex items-start md:space-x-3">
+            {/* Desktop Icon */}
+            <div className="hidden md:block p-2 rounded-lg bg-green-100">
+              <Music className="w-5 h-5 text-green-600" />
+            </div>
+
+            <div className="flex-1 w-full md:space-y-3">
+              <h4 className="hidden md:block font-semibold text-gray-800">Soundscape</h4>
+
+              <div className="relative px-2 md:px-0 w-full md:rounded-xl overflow-hidden border-y md:border border-white/20">
                 {!isPlayerLoaded && (
                   <div className="absolute inset-0 flex items-center justify-center bg-gray-100/50 backdrop-blur animate-pulse">
                     <div className="flex flex-col items-center space-y-2">
@@ -174,19 +184,20 @@ export function SuggestionPanel({ suggestions, mood, onRefresh, isRefreshing = f
                     </div>
                   </div>
                 )}
+
                 <iframe
                   src={`https://open.spotify.com/embed/playlist/${mood.spotifyPlaylistId || '37i9dQZF1DX3Ogo9pFno96'}?utm_source=generator&theme=0`}
                   width="100%"
-                  height="152"
+                  height="100px"
                   frameBorder="0"
                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                   loading="lazy"
-                  className={`w-full h-full transition-opacity duration-500 ${isPlayerLoaded ? 'opacity-100' : 'opacity-0'}`}
+                  className={`w-full transition-opacity duration-500 ${isPlayerLoaded ? 'opacity-100' : 'opacity-0'}`}
                   onLoad={() => setIsPlayerLoaded(true)}
                 />
               </div>
 
-              <p className="text-sm text-gray-600 italic">
+              <p className="text-sm text-gray-600 italic p-4 md:p-0">
                 <span className="font-medium text-green-600">Suggested:</span> {suggestions.music}
               </p>
             </div>
