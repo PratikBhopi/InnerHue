@@ -2,7 +2,7 @@
 
 import React, { memo } from 'react';
 // import { motion } from "framer-motion";
-import { Check, Sparkles } from "lucide-react";
+import { Check, Sparkles, X } from "lucide-react";
 
 import { motion, AnimatePresence } from 'framer-motion';
 import './moodcard.css';

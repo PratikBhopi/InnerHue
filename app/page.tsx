@@ -9,6 +9,8 @@ import { Heart, BarChart3, Music, Plus } from 'lucide-react';
 import SimpleLangFlowChatbot from '@/components/SimpleLangFlowChatbot';
 import { QuoteCard } from '@/components/QuoteCard';
 
+import { ThemeToggle } from '@/components/ThemeToggle';
+
 const moods = [
   { id: 'happy', name: 'Happy', emoji: '😊', color: '#FFD93D', glow: '#FFF176', category: 'positive' },
   { id: 'sad', name: 'Sad', emoji: '😢', color: '#42A5F5', glow: '#64B5F6', category: 'negative' },
@@ -52,6 +54,33 @@ const moods = [
 
 export default function Home() {
   const [selectedMoods, setSelectedMoods] = useState<string[]>([]);
+  const [backgroundOrbs, setBackgroundOrbs] = useState<Array<{
+    id: number;
+    color: string;
+    width: number;
+    height: number;
+    left: string;
+    top: string;
+    x: number;
+    y: number;
+    duration: number;
+  }>>([]);
+
+  useEffect(() => {
+    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F'];
+    const orbs = Array.from({ length: 8 }, (_, i) => ({
+      id: i,
+      color: colors[i],
+      width: Math.random() * 300 + 100,
+      height: Math.random() * 300 + 100,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      x: Math.random() * 100 - 50,
+      y: Math.random() * 100 - 50,
+      duration: Math.random() * 5 + 5
+    }));
+    setBackgroundOrbs(orbs);
+  }, []);
 
   const toggleMood = (moodId: string) => {
     setSelectedMoods(prev => {
